@@ -1,7 +1,8 @@
 {
   "name": "techins-hardware",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "TECHINS HARDWARE - Complete MERN Stack Hardware Learning Platform",
+  "type": "module",
   "scripts": {
     "install-server": "cd server && npm install",
     "install-client": "cd client && npm install",
@@ -9,7 +10,12 @@
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
     "seed": "cd server && npm run seed",
-    "dev": "echo 'Run npm run server in one terminal and npm run client in another' && echo 'Or use concurrently: npm install -g concurrently && concurrently \"npm run server\" \"npm run client\"'"
+    "dev": "echo 'Run npm run server in one terminal and npm run client in another' && echo 'Or use concurrently: npm install -g concurrently && concurrently \"npm run server\" \"npm run client\"'",
+    "vercel-build": "cd client && npm install && npm run build",
+    "build": "npm run vercel-build"
+  },
+  "dependencies": {
+    "serverless-http": "^3.2.0"
   },
   "keywords": [
     "mern",

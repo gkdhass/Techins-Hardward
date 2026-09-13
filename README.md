@@ -326,6 +326,108 @@ npm run preview
 
 ---
 
+## 🌐 Deployment to Vercel
+
+TECHINS HARDWARE is optimized for deployment on **Vercel** with **MongoDB Atlas** and **Cloudinary**.
+
+### Architecture
+
+- **Frontend:** Vite React app deployed as static site
+- **Backend:** Express API wrapped as serverless function
+- **Database:** MongoDB Atlas (cloud database)
+- **File Storage:** Cloudinary (cloud storage for images)
+
+### Quick Deploy
+
+1. **Fork/Clone Repository:**
+   ```bash
+   git clone https://github.com/gkdhass/Techins-Hardward.git
+   ```
+
+2. **Set Up MongoDB Atlas:**
+   - Create free cluster at https://www.mongodb.com/cloud/atlas
+   - Create database user with password
+   - Whitelist IP: `0.0.0.0/0` (for serverless)
+   - Get connection string
+
+3. **Set Up Cloudinary:**
+   - Create free account at https://cloudinary.com
+   - Get Cloud Name, API Key, and API Secret from dashboard
+
+4. **Deploy to Vercel:**
+   - Import project at https://vercel.com
+   - Link your GitHub repository
+   - Add environment variables (see below)
+   - Deploy!
+
+### Environment Variables (Vercel Project Settings)
+
+**Backend Variables:**
+```env
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/techins-hardware?retryWrites=true&w=majority
+JWT_SECRET=your_super_secret_jwt_key_min_32_characters_long
+CLIENT_URL=https://your-app.vercel.app
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+NODE_ENV=production
+MAX_FILE_SIZE=5242880
+JWT_EXPIRE=7d
+```
+
+**Frontend Variables:**
+```env
+VITE_API_URL=/api
+```
+
+### Post-Deployment Steps
+
+1. **Seed Database** (run locally, pointed at production MongoDB):
+   ```bash
+   cd server
+   # Create temporary .env with production MONGODB_URI
+   NODE_ENV=production npm run seed
+   ```
+
+2. **Test Application:**
+   - Visit your Vercel URL
+   - Test login with demo accounts
+   - Verify file uploads work (Cloudinary)
+
+3. **Update CLIENT_URL:**
+   - After first deploy, update `CLIENT_URL` env variable with actual Vercel URL
+   - Redeploy for CORS to work correctly
+
+### Key Features for Vercel
+
+✅ **Serverless Backend:** Express app wrapped with `serverless-http`  
+✅ **Connection Caching:** MongoDB connections reused across function calls  
+✅ **Cloud Storage:** Multer uploads to Cloudinary (not local disk)  
+✅ **Environment-Aware:** Auto-detects production vs development  
+✅ **SPA Routing:** React Router works with direct URLs  
+✅ **HTTPS Secure:** SSL certificate included  
+
+### Detailed Documentation
+
+For complete deployment instructions, see:
+- **[VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)** - Step-by-step Vercel guide
+- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - General deployment checklist
+
+### Alternative Deployment (Split Architecture)
+
+Deploy frontend to Vercel and backend to a persistent Node host:
+
+**Frontend (Vercel):**
+- Deploy `client/` as static site
+- Set `VITE_API_URL` to backend URL
+
+**Backend (Render/Railway/Fly.io):**
+- Deploy `server/` as Node.js app
+- Use Cloudinary for file uploads
+- Set CORS to allow Vercel domain
+
+---
+
 ## 👥 Demo Accounts
 
 After running the seed script, use these accounts to test different roles:
