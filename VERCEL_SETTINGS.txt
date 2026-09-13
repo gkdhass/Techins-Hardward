@@ -1,0 +1,102 @@
+═══════════════════════════════════════════════════════════
+    TECHINS HARDWARE - CORRECT VERCEL SETTINGS
+═══════════════════════════════════════════════════════════
+
+When importing to Vercel, use these EXACT settings:
+
+┌─────────────────────────────────────────────────────────┐
+│ PROJECT CONFIGURATION                                   │
+└─────────────────────────────────────────────────────────┘
+
+Framework Preset:     Other (or leave as auto-detected)
+Root Directory:       ./ (LEAVE BLANK - use repository root)
+Build Command:        npm run build
+Output Directory:     client/dist
+Install Command:      npm install && cd server && npm install && cd ../client && npm install
+
+┌─────────────────────────────────────────────────────────┐
+│ ❌ WRONG SETTINGS (DON'T USE THESE)                    │
+└─────────────────────────────────────────────────────────┘
+
+❌ Framework Preset: Express
+❌ Root Directory: server
+❌ Root Directory: client
+❌ Build Command: cd server && npm install
+
+┌─────────────────────────────────────────────────────────┐
+│ ENVIRONMENT VARIABLES (Add before deploying)           │
+└─────────────────────────────────────────────────────────┘
+
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/techins-hardware?retryWrites=true&w=majority
+JWT_SECRET=your_32_character_random_secret_key_here
+CLIENT_URL=https://your-project-name.vercel.app
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+NODE_ENV=production
+MAX_FILE_SIZE=5242880
+JWT_EXPIRE=7d
+VITE_API_URL=/api
+
+┌─────────────────────────────────────────────────────────┐
+│ DEPLOYMENT STEPS                                        │
+└─────────────────────────────────────────────────────────┘
+
+1. Go to: https://vercel.com/new
+2. Import: gkdhass/Techins-Hardward
+3. Use settings above
+4. Add all environment variables
+5. Click "Deploy"
+6. Wait 2-5 minutes
+7. Copy your deployment URL
+8. Update CLIENT_URL env variable with your URL
+9. Redeploy
+10. Seed database from local machine
+11. Test application
+
+┌─────────────────────────────────────────────────────────┐
+│ AFTER DEPLOYMENT                                        │
+└─────────────────────────────────────────────────────────┘
+
+Test URLs:
+✓ Homepage: https://your-project.vercel.app
+✓ API Health: https://your-project.vercel.app/api/health
+✓ Login: admin@techins.com / admin123
+
+Demo Accounts:
+- Admin: admin@techins.com / admin123
+- Instructor: instructor@techins.com / instructor123
+- User: user@techins.com / user123
+
+┌─────────────────────────────────────────────────────────┐
+│ TROUBLESHOOTING                                         │
+└─────────────────────────────────────────────────────────┘
+
+Build fails?
+→ Check Root Directory is blank (repository root)
+→ Verify all environment variables are set
+→ Check build logs in Vercel dashboard
+
+API returns 404?
+→ Verify api/index.js exists in root
+→ Check vercel.json is in root
+→ Redeploy
+
+CORS errors?
+→ Update CLIENT_URL to exact Vercel URL
+→ Include https://, no trailing slash
+→ Redeploy
+
+MongoDB errors?
+→ Check MONGODB_URI is correct
+→ Verify 0.0.0.0/0 whitelisted in Atlas
+→ Test connection locally
+
+File upload fails?
+→ Verify all 3 Cloudinary variables
+→ Check API Secret is correct
+→ Check Cloudinary account is active
+
+═══════════════════════════════════════════════════════════
+See VERCEL_HOSTING_GUIDE.md for detailed instructions
+═══════════════════════════════════════════════════════════

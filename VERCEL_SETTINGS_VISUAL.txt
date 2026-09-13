@@ -1,0 +1,173 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║        TECHINS HARDWARE - CORRECT VERCEL SETTINGS                    ║
+║        Copy These Settings EXACTLY                                   ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────┐
+│                                                                       │
+│  📁 ROOT DIRECTORY                                                   │
+│                                                                       │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ ./                                                          │    │
+│  │ (or leave COMPLETELY BLANK)                                 │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                       │
+│  ❌ DON'T SET TO: "server"                                          │
+│  ❌ DON'T SET TO: "client"                                          │
+│  ✅ MUST BE: "./" or blank (repository root)                        │
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────┐
+│                                                                       │
+│  ⚙️  BUILD & DEVELOPMENT SETTINGS                                    │
+│                                                                       │
+│  Framework Preset:                                                   │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ Other                                                       │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                       │
+│  Build Command:                                                      │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ npm run build                                               │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                       │
+│  Output Directory:                                                   │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ client/dist                                                 │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                       │
+│  Install Command: (leave default or blank)                           │
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────┐
+│                                                                       │
+│  🔐 ENVIRONMENT VARIABLES                                            │
+│  (Add in Settings → Environment Variables)                           │
+│                                                                       │
+│  Name                          Value                                 │
+│  ──────────────────────────────────────────────────────────────     │
+│  MONGODB_URI                   mongodb+srv://user:pass@...          │
+│  JWT_SECRET                    your_32_character_secret             │
+│  CLIENT_URL                    https://your-app.vercel.app          │
+│  CLOUDINARY_CLOUD_NAME         your_cloud_name                      │
+│  CLOUDINARY_API_KEY            your_api_key                         │
+│  CLOUDINARY_API_SECRET         your_api_secret                      │
+│  NODE_ENV                      production                           │
+│  MAX_FILE_SIZE                 5242880                              │
+│  JWT_EXPIRE                    7d                                   │
+│  VITE_API_URL                  /api                                 │
+│                                                                       │
+│  ⚠️  For each variable, select all 3 environments:                  │
+│     ☑ Production  ☑ Preview  ☑ Development                         │
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║  🎯 HOW IT SHOULD LOOK IN VERCEL                                     ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+  Project Settings
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  General
+
+    Root Directory              ./                            [Edit]
+    
+    Framework Preset            Other                         [Edit]
+    
+    Build Command               npm run build                 [Edit]
+    
+    Output Directory            client/dist                   [Edit]
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║  ❌ COMMON MISTAKES (DON'T DO THESE!)                               ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+  ❌ Mistake 1:
+     Root Directory: server
+     Result: Can't find client/ folder, build fails
+
+  ❌ Mistake 2:
+     Root Directory: client
+     Result: No backend API, frontend works but API calls fail
+
+  ❌ Mistake 3:
+     Build Command: cd client && npm install && npm run build
+     Result: If Root is "server", can't find client/ folder
+
+  ❌ Mistake 4:
+     Framework Preset: Express
+     Result: Wrong build configuration for monorepo
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║  ✅ CORRECT CONFIGURATION                                            ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+  Your Repository Structure:
+  
+  techins-hardware/  ← ROOT (Vercel starts here)
+  ├── api/
+  │   └── index.js         ← Serverless function (backend)
+  ├── client/
+  │   ├── src/             ← React app
+  │   ├── dist/            ← Built here (client/dist)
+  │   └── package.json
+  ├── server/
+  │   ├── server.js        ← Express app (used by api/index.js)
+  │   ├── routes/
+  │   └── controllers/
+  ├── vercel.json          ← Routing config
+  └── package.json         ← Root package (has npm run build)
+
+  What Vercel Does:
+  
+  1. Starts at ROOT (/)
+  2. Runs: npm run build
+  3. Builds: client/ → client/dist
+  4. Deploys: api/index.js as serverless function
+  5. Serves: client/dist as static site
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║  🚀 DEPLOYMENT CHECKLIST                                             ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+  Before clicking "Deploy":
+
+  ☐ Root Directory: blank or ./
+  ☐ Build Command: npm run build
+  ☐ Output Directory: client/dist
+  ☐ Framework: Other
+  ☐ All 10 environment variables added
+  ☐ Each variable has all 3 environments checked
+  ☐ Repository has latest code pushed
+
+  After first deployment:
+
+  ☐ Copy your Vercel URL
+  ☐ Update CLIENT_URL environment variable
+  ☐ Redeploy
+  ☐ Seed database from local machine
+  ☐ Test all features
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║  📞 NEED HELP?                                                       ║
+║                                                                       ║
+║  See detailed guides:                                                ║
+║  • VERCEL_CORRECT_SETTINGS.md                                       ║
+║  • VERCEL_HOSTING_GUIDE.md                                          ║
+║  • TROUBLESHOOTING_VERCEL.md                                        ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
