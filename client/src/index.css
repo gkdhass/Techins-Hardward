@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border-thin;
+  }
+  
+  body {
+    @apply bg-bg-base text-text-primary font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Pill buttons from design system */
+  .btn-pill {
+    @apply px-6 py-3 rounded-full font-medium transition-all duration-300 inline-flex items-center gap-2;
+  }
+
+  .btn-pill-primary {
+    @apply btn-pill bg-bg-surface text-text-primary hover:bg-bg-surface-alt hover:scale-105;
+  }
+
+  .btn-pill-ghost {
+    @apply btn-pill border border-border-thin text-text-primary hover:border-accent-primary hover:text-accent-primary;
+  }
+
+  .btn-pill-accent {
+    @apply btn-pill bg-accent-primary text-bg-base hover:bg-accent-primary-dim hover:shadow-[0_0_20px_rgba(212,151,30,0.35)];
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-bg-surface border border-border-thin rounded-xl transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:border-accent-primary hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(212,151,30,0.35)];
+  }
+
+  /* Section eyebrow labels */
+  .eyebrow {
+    @apply text-eyebrow uppercase text-text-muted tracking-[0.12em];
+  }
+
+  /* Hero panel with corner marks */
+  .hero-panel {
+    @apply relative rounded-3xl overflow-hidden;
+  }
+
+  .hero-panel::before,
+  .hero-panel::after,
+  .hero-panel .corner-mark::before,
+  .hero-panel .corner-mark::after {
+    content: '+';
+    @apply absolute text-accent-primary text-2xl font-light;
+  }
+
+  .hero-panel::before {
+    @apply top-4 left-4;
+  }
+
+  .hero-panel::after {
+    @apply top-4 right-4;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-4 py-3 bg-bg-surface border border-border-thin rounded-lg text-text-primary;
+    @apply focus:outline-none focus:border-accent-primary focus:ring-1 focus:ring-accent-primary;
+    @apply placeholder:text-text-muted;
+  }
+
+  .textarea {
+    @apply input min-h-[120px] resize-y;
+  }
+
+  /* Link styles */
+  .link {
+    @apply text-text-secondary hover:text-accent-primary transition-colors duration-200;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-amber {
+    @apply badge bg-accent-primary/10 text-accent-primary border border-accent-primary/20;
+  }
+
+  .badge-gray {
+    @apply badge bg-bg-surface-alt text-text-secondary border border-border-thin;
+  }
+}
+
+@layer utilities {
+  /* Scroll reveals */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Glow effect */
+  .glow-amber {
+    box-shadow: 0 0 20px rgba(212, 151, 30, 0.35);
+  }
+
+  /* Text gradient */
+  .text-gradient-amber {
+    @apply bg-gradient-to-r from-accent-primary to-accent-primary-light bg-clip-text text-transparent;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Custom cursor for hero */
+.custom-cursor {
+  cursor: none;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  width: 48px;
+  height: 48px;
+  background: rgba(212, 151, 30, 0.2);
+  border: 2px solid #D4971E;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.1s ease;
+  transform: translate(-50%, -50%);
+}
+
+/* Rotating ring accent */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating-ring {
+  animation: rotate 20s linear infinite;
+}
+
+/* Code block styling */
+pre code {
+  @apply font-mono text-sm;
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
