@@ -1,0 +1,51 @@
+# Vercel Ignore - Don't upload these files
+
+# Documentation
+*.md
+!README.md
+!QUICKSTART.md
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Environment (will be set in Vercel dashboard)
+.env
+.env.local
+.env.production
+server/.env
+
+# Build outputs (will be built on Vercel)
+dist/
+build/
+client/dist/
+client/build/
+
+# Dependencies (will be installed on Vercel)
+node_modules/
+
+# Uploads (will use Cloudinary)
+server/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.pem
