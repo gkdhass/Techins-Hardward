@@ -25,8 +25,9 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Connect to database (with caching for serverless)
-connectDB();
+// DO NOT connect to database at module load time!
+// Connection will be established on first request via middleware
+// This prevents crashes if MongoDB is unavailable during cold start
 
 // Initialize app
 const app = express();
@@ -48,6 +49,21 @@ app.use(express.urlencoded({ extended: true }));
 
 // Cookie parser
 app.use(cookieParser());
+
+// Database connection middleware - connect on first request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database connection failed:', error);
+    res.status(503).json({
+      success: false,
+      message: 'Database connection failed',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Service temporarily unavailable'
+    });
+  }
+});
 
 // Serve static files (only used in local development - Cloudinary in production)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

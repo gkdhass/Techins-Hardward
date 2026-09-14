@@ -6,7 +6,7 @@ let cachedConnection = null;
 const connectDB = async () => {
   // If we already have a cached connection, reuse it (important for serverless)
   if (cachedConnection && mongoose.connection.readyState === 1) {
-    console.log('Using cached MongoDB connection');
+    console.log('✓ Using cached MongoDB connection');
     return cachedConnection;
   }
 
@@ -17,7 +17,7 @@ const connectDB = async () => {
       socketTimeoutMS: 45000,
     });
 
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log(`✓ MongoDB Connected: ${conn.connection.host}`);
     
     // Cache the connection for reuse
     cachedConnection = conn;
@@ -36,14 +36,12 @@ const connectDB = async () => {
     return conn;
 
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error(`❌ MongoDB connection failed: ${error.message}`);
     cachedConnection = null;
     
-    // In serverless, don't exit process - just throw error
-    if (process.env.VERCEL) {
-      throw error;
-    }
-    process.exit(1);
+    // NEVER call process.exit() in serverless - just throw the error
+    // Let the request handler catch it and return appropriate error response
+    throw error;
   }
 };
 

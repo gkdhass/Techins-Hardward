@@ -49,7 +49,7 @@ categorySchema.pre('save', function(next) {
   next();
 });
 
-categorySchema.index({ name: 1 });
+// name and slug already have unique: true, no need for explicit index
 
 const Category = mongoose.model('Category', categorySchema);
 

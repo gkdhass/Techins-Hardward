@@ -98,9 +98,7 @@ userSchema.methods.comparePassword = async function(enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Indexes
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+// Indexes - email and username already have unique: true, no need for explicit index
 userSchema.index({ role: 1 });
 
 const User = mongoose.model('User', userSchema);
