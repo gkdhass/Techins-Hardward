@@ -90,7 +90,6 @@ projectSchema.pre('save', function(next) {
   next();
 });
 
-projectSchema.index({ slug: 1 });
 projectSchema.index({ author: 1 });
 projectSchema.index({ category: 1 });
 projectSchema.index({ featured: 1 });

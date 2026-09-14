@@ -49,7 +49,6 @@ categorySchema.pre('save', function(next) {
   next();
 });
 
-categorySchema.index({ slug: 1 });
 categorySchema.index({ name: 1 });
 
 const Category = mongoose.model('Category', categorySchema);

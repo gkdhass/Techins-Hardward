@@ -86,7 +86,6 @@ courseSchema.pre('save', function(next) {
   next();
 });
 
-courseSchema.index({ slug: 1 });
 courseSchema.index({ instructor: 1 });
 courseSchema.index({ category: 1 });
 courseSchema.index({ published: 1 });

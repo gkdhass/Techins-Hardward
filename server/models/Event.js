@@ -115,7 +115,6 @@ eventSchema.pre('save', function(next) {
   next();
 });
 
-eventSchema.index({ slug: 1 });
 eventSchema.index({ type: 1 });
 eventSchema.index({ date: 1 });
 eventSchema.index({ featured: 1 });

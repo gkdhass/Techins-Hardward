@@ -88,7 +88,6 @@ productSchema.pre('save', function(next) {
   next();
 });
 
-productSchema.index({ slug: 1 });
 productSchema.index({ category: 1 });
 productSchema.index({ featured: 1 });
 productSchema.index({ name: 'text', description: 'text' });

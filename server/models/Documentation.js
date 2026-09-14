@@ -59,7 +59,6 @@ documentationSchema.pre('save', function(next) {
   next();
 });
 
-documentationSchema.index({ slug: 1 });
 documentationSchema.index({ category: 1, order: 1 });
 documentationSchema.index({ parent: 1 });
 

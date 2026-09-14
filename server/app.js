@@ -75,11 +75,11 @@ app.get('/api/health', (req, res) => {
 // Error handler (must be last)
 app.use(errorHandler);
 
-// 404 handler
-app.use((req, res) => {
+// 404 handler - Only respond to /api/* paths, let Vercel handle frontend routes
+app.use('/api', (req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Route not found',
+    message: 'API route not found',
     path: req.path
   });
 });

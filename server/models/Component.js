@@ -89,7 +89,6 @@ componentSchema.pre('save', function(next) {
   next();
 });
 
-componentSchema.index({ slug: 1 });
 componentSchema.index({ category: 1 });
 componentSchema.index({ manufacturer: 1 });
 componentSchema.index({ name: 'text', description: 'text' });
