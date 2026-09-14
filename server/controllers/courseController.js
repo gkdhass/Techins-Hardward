@@ -94,8 +94,10 @@ export const createCourse = async (req, res, next) => {
   try {
     req.body.instructor = req.user.id;
     
+    // When using Cloudinary, req.file.path contains the Cloudinary URL
+    // When using memory storage, would need manual upload
     if (req.file) {
-      req.body.thumbnail = `/uploads/courses/${req.file.filename}`;
+      req.body.thumbnail = req.file.path || req.file.location || `/uploads/courses/${req.file.filename}`;
     }
     
     const course = await Course.create(req.body);
@@ -134,8 +136,9 @@ export const updateCourse = async (req, res, next) => {
       });
     }
     
+    // When using Cloudinary, req.file.path contains the Cloudinary URL
     if (req.file) {
-      req.body.thumbnail = `/uploads/courses/${req.file.filename}`;
+      req.body.thumbnail = req.file.path || req.file.location || `/uploads/courses/${req.file.filename}`;
     }
     
     course = await Course.findByIdAndUpdate(req.params.id, req.body, {

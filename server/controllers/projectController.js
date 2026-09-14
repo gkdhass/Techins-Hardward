@@ -94,9 +94,9 @@ export const createProject = async (req, res, next) => {
   try {
     req.body.author = req.user.id;
     
-    // Handle image uploads
+    // Handle image uploads - Cloudinary stores URL in file.path
     if (req.files && req.files.length > 0) {
-      req.body.images = req.files.map(file => `/uploads/projects/${file.filename}`);
+      req.body.images = req.files.map(file => file.path || file.location || `/uploads/projects/${file.filename}`);
     }
     
     const project = await Project.create(req.body);
@@ -135,9 +135,9 @@ export const updateProject = async (req, res, next) => {
       });
     }
     
-    // Handle new image uploads
+    // Handle new image uploads - Cloudinary stores URL in file.path
     if (req.files && req.files.length > 0) {
-      const newImages = req.files.map(file => `/uploads/projects/${file.filename}`);
+      const newImages = req.files.map(file => file.path || file.location || `/uploads/projects/${file.filename}`);
       req.body.images = [...(project.images || []), ...newImages];
     }
     

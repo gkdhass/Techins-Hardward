@@ -76,8 +76,9 @@ export const getComponent = async (req, res, next) => {
 // @access  Private (Admin)
 export const createComponent = async (req, res, next) => {
   try {
+    // Cloudinary stores URL in req.file.path, fallback to local path
     if (req.file) {
-      req.body.image = `/uploads/components/${req.file.filename}`;
+      req.body.image = req.file.path || req.file.location || `/uploads/components/${req.file.filename}`;
     }
     
     const component = await Component.create(req.body);
@@ -107,8 +108,9 @@ export const updateComponent = async (req, res, next) => {
       });
     }
     
+    // Cloudinary stores URL in req.file.path, fallback to local path
     if (req.file) {
-      req.body.image = `/uploads/components/${req.file.filename}`;
+      req.body.image = req.file.path || req.file.location || `/uploads/components/${req.file.filename}`;
     }
     
     component = await Component.findByIdAndUpdate(req.params.id, req.body, {

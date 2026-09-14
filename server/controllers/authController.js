@@ -171,9 +171,9 @@ export const updateProfile = async (req, res, next) => {
       key => fieldsToUpdate[key] === undefined && delete fieldsToUpdate[key]
     );
 
-    // Handle avatar upload
+    // Handle avatar upload - Cloudinary stores URL in req.file.path
     if (req.file) {
-      fieldsToUpdate.avatar = `/uploads/profiles/${req.file.filename}`;
+      fieldsToUpdate.avatar = req.file.path || req.file.location || `/uploads/profiles/${req.file.filename}`;
     }
 
     const user = await User.findByIdAndUpdate(

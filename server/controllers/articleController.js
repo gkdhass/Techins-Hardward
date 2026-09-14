@@ -82,8 +82,9 @@ export const createArticle = async (req, res, next) => {
   try {
     req.body.author = req.user.id;
     
+    // Cloudinary stores URL in req.file.path, fallback to local path
     if (req.file) {
-      req.body.thumbnail = `/uploads/articles/${req.file.filename}`;
+      req.body.thumbnail = req.file.path || req.file.location || `/uploads/articles/${req.file.filename}`;
     }
     
     const article = await Article.create(req.body);
@@ -118,8 +119,9 @@ export const updateArticle = async (req, res, next) => {
       });
     }
     
+    // Cloudinary stores URL in req.file.path, fallback to local path
     if (req.file) {
-      req.body.thumbnail = `/uploads/articles/${req.file.filename}`;
+      req.body.thumbnail = req.file.path || req.file.location || `/uploads/articles/${req.file.filename}`;
     }
     
     article = await Article.findByIdAndUpdate(req.params.id, req.body, {

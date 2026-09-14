@@ -1,58 +1,10 @@
 import multer from 'multer';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-// Create subdirectories
-const subDirs = ['profiles', 'courses', 'projects', 'events', 'articles', 'components', 'products'];
-subDirs.forEach(dir => {
-  const dirPath = path.join(uploadsDir, dir);
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-});
-
-// Storage configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    let folder = 'uploads/';
-    
-    // Determine folder based on fieldname or path
-    if (req.path.includes('/profile')) {
-      folder += 'profiles/';
-    } else if (req.path.includes('/courses')) {
-      folder += 'courses/';
-    } else if (req.path.includes('/projects')) {
-      folder += 'projects/';
-    } else if (req.path.includes('/events')) {
-      folder += 'events/';
-    } else if (req.path.includes('/articles')) {
-      folder += 'articles/';
-    } else if (req.path.includes('/components')) {
-      folder += 'components/';
-    } else if (req.path.includes('/products')) {
-      folder += 'products/';
-    }
-    
-    const uploadPath = path.join(__dirname, '..', folder);
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    const name = path.basename(file.originalname, ext).replace(/\s+/g, '-');
-    cb(null, name + '-' + uniqueSuffix + ext);
-  }
-});
+// Use memory storage instead of disk storage
+// Files will be stored in memory as Buffer objects
+// This is safe for Vercel's read-only filesystem
+const storage = multer.memoryStorage();
 
 // File filter
 const fileFilter = (req, file, cb) => {

@@ -70,8 +70,9 @@ export const createEvent = async (req, res, next) => {
   try {
     req.body.organizer = req.user.id;
     
+    // Cloudinary stores URL in req.file.path, fallback to local path
     if (req.file) {
-      req.body.banner = `/uploads/events/${req.file.filename}`;
+      req.body.banner = req.file.path || req.file.location || `/uploads/events/${req.file.filename}`;
     }
     
     const event = await Event.create(req.body);
@@ -106,8 +107,9 @@ export const updateEvent = async (req, res, next) => {
       });
     }
     
+    // Cloudinary stores URL in req.file.path, fallback to local path
     if (req.file) {
-      req.body.banner = `/uploads/events/${req.file.filename}`;
+      req.body.banner = req.file.path || req.file.location || `/uploads/events/${req.file.filename}`;
     }
     
     event = await Event.findByIdAndUpdate(req.params.id, req.body, {
