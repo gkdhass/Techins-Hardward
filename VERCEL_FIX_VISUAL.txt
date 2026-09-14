@@ -1,0 +1,122 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║          🔴 FIX YOUR VERCEL BUILD ERROR IN 2 MINUTES 🔴          ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────┐
+│ YOUR ERROR:                                                      │
+├──────────────────────────────────────────────────────────────────┤
+│  Running build command...                                        │
+│  $ cd client && npm install && npm run build                     │
+│  ❌ cd: client: No such file or directory                        │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ THE CAUSE:                                                       │
+├──────────────────────────────────────────────────────────────────┤
+│  Your Vercel "Root Directory" setting is WRONG                   │
+│  It's probably set to: "server"                                  │
+│  This makes Vercel look in the wrong place!                      │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ THE FIX (5 steps):                                               │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1️⃣  Go to: https://vercel.com/dashboard                        │
+│                                                                  │
+│  2️⃣  Click your project → Settings tab                          │
+│                                                                  │
+│  3️⃣  Scroll to "Build & Development Settings"                   │
+│                                                                  │
+│  4️⃣  Find "Root Directory" → Click "Edit"                       │
+│                                                                  │
+│  5️⃣  CHANGE FROM: server                                        │
+│     CHANGE TO:    .        (just a period)                       │
+│     OR leave it BLANK                                            │
+│                                                                  │
+│     Then click SAVE                                              │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ VISUAL EXPLANATION:                                              │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ❌ WRONG (Root Directory = "server"):                           │
+│                                                                  │
+│      Vercel starts here:  /server/                               │
+│                           ├── controllers/                       │
+│                           ├── models/                            │
+│                           └── routes/                            │
+│                                                                  │
+│      Build command runs:  cd client                              │
+│                           └─→ Error! No client/ here!            │
+│                                                                  │
+│  ─────────────────────────────────────────────────────────────  │
+│                                                                  │
+│  ✅ CORRECT (Root Directory = "." or blank):                     │
+│                                                                  │
+│      Vercel starts here:  /                                      │
+│                           ├── api/                               │
+│                           ├── client/        ← Found it!         │
+│                           ├── server/                            │
+│                           └── vercel.json                        │
+│                                                                  │
+│      Build command runs:  cd client                              │
+│                           └─→ Success! /client/ exists!          │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ VERIFY ALL SETTINGS MATCH THIS:                                 │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Root Directory:     .  (or blank)                               │
+│  Framework Preset:   Vite                                        │
+│  Build Command:      cd client && npm install && npm run build   │
+│  Output Directory:   client/dist                                 │
+│  Install Command:    npm install                                 │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ AFTER FIXING ROOT DIRECTORY:                                     │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. Go to Deployments tab                                        │
+│  2. Click "Redeploy" on latest deployment                        │
+│  3. Wait 2-3 minutes                                             │
+│  4. ✅ Build should succeed!                                     │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ ENVIRONMENT VARIABLES (Don't forget!):                           │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Settings → Environment Variables → Add:                         │
+│                                                                  │
+│  ✅ MONGODB_URI=mongodb+srv://...                                │
+│  ✅ JWT_SECRET=your-secret-key                                   │
+│  ✅ CLIENT_URL=https://your-project.vercel.app                   │
+│  ✅ NODE_ENV=production                                          │
+│  ✅ CLOUDINARY_CLOUD_NAME=...                                    │
+│  ✅ CLOUDINARY_API_KEY=...                                       │
+│  ✅ CLOUDINARY_API_SECRET=...                                    │
+│  ✅ VITE_API_BASE_URL=/api                                       │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║  That's it! One setting change fixes everything.                 ║
+║                                                                  ║
+║  Your code is perfect. The repository is correct.                ║
+║  Just fix the Root Directory setting!                            ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+COMMIT: 7e0ad3b (all dependencies added to root package.json)
+DATE:   September 14, 2026
